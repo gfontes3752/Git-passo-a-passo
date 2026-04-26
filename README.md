@@ -112,6 +112,20 @@ git push -u origin main
 git push -u origin main --force
 ```
 
+### Pasta já existe mas sem .git
+```powershell
+git init
+git remote add origin https://github.com/seu-usuario/nome-do-repo.git
+Remove-Item README.md
+git pull origin main
+```
+
+### Commit foi para branch master em vez de main
+```powershell
+git branch -M main
+git push -u origin main
+```
+
 ---
 
 ## ⚠️ Boas práticas
