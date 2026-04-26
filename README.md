@@ -57,11 +57,17 @@ git push -u origin feat/nome-da-feature
 # Sempre verifique em qual branch está
 git branch
 
+# Se estiver na branch errada, mude antes de editar qualquer arquivo
+git checkout nome-da-branch-correta
+
 # Edite os arquivos no VS Code, depois:
 git add .
 git commit -m "feat: descrição do que fez"
 git push
 ```
+
+> ⚠️ **Atenção:** sempre confirme a branch antes de começar a editar.
+> Commitar na branch errada pode causar problemas no histórico do projeto.
 
 ---
 
