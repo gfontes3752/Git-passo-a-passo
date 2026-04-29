@@ -132,6 +132,47 @@ git branch -M main
 git push -u origin main
 ```
 
+## 10. Atualizando o projeto em notebooks diferentes
+
+Quando trabalhar em uma máquina diferente, sempre sincronize o projeto
+antes de começar a editar.
+
+### 1. Se o projeto ainda não existe na máquina
+
+```powershell
+cd C:\sua-pasta
+git clone https://github.com/seu-usuario/nome-do-repo.git
+cd nome-do-repo
+```
+
+### 2. Se o projeto já existe na máquina
+
+```powershell
+# Acesse a pasta do projeto
+cd C:\sua-pasta\nome-do-repo
+
+# Troque para a branch feat/ que deseja atualizar
+git checkout feat/nome-da-feature
+
+# Baixe as últimas atualizações
+git pull origin feat/nome-da-feature
+```
+
+### 3. Confirme que está atualizado
+
+```powershell
+git log --oneline -5
+```
+
+> ⚠️ **Atenção:** sempre execute o `git pull` antes de começar a editar
+> em uma máquina diferente. Isso evita conflitos com o trabalho feito
+> em outra máquina.
+
+> Depois de salvar suba para o Git
+git add .
+git commit -m "docs: adicionando item 10 atualização em notebooks diferentes"
+git push
+
 ---
 
 ## ⚠️ Boas práticas
