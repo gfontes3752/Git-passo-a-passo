@@ -1,4 +1,4 @@
-# 📌 Git - Passo a Passo
+# 📌 Git — Passo a Passo
 
 Guia de referência rápida para criação e gerenciamento de repositórios Git com GitHub.
 
@@ -49,6 +49,12 @@ git checkout -b feat/nome-da-feature
 git push -u origin feat/nome-da-feature
 ```
 
+> ⚠️ Se a branch já existe no GitHub e você está em uma máquina nova, use:
+> ```powershell
+> git checkout feat/nome-da-feature
+> git push --set-upstream origin feat/nome-da-feature
+> ```
+
 ---
 
 ## 6. Fluxo diário de trabalho
@@ -76,10 +82,37 @@ git push
 - Acesse o repositório no GitHub
 - Clique em **Compare & pull request**
 - Faça o merge de `feat/` → `develop` → `main`
+- O Railway detecta o push na `main` e faz deploy automático
 
 ---
 
-## 8. Comandos úteis
+## 8. Descobrir onde você parou
+
+Use estes comandos para saber qual branch foi mexida por último e se já foi mergeada.
+
+```powershell
+# Ver todas as branches ordenadas pela data do último commit (mais recente primeiro)
+git branch -a --sort=-committerdate
+
+# Ver apenas branches locais ordenadas por data
+git branch --sort=-committerdate
+
+# Ver branches já mergeadas na develop
+git branch --merged develop
+
+# Ver branches já mergeadas na main
+git branch --merged main
+
+# Ver últimos commits da branch atual
+git log --oneline -5
+```
+
+> 💡 **Dica:** Se a branch aparece em `git branch --merged main`, ela já foi mergeada.
+> Se não aparece, ainda está pendente de PR.
+
+---
+
+## 9. Comandos úteis
 
 ```powershell
 # Ver status dos arquivos
@@ -96,11 +129,22 @@ git remote -v
 
 # Atualizar o remote se errar o nome
 git remote set-url origin https://github.com/seu-usuario/nome-correto.git
+
+# Baixar atualizações sem fazer merge
+git fetch origin
+
+# Ver diferença entre branch local e remota
+git diff main origin/main
 ```
 
 ---
 
-## 9. Solução de problemas comuns
+## 10. Solução de problemas comuns
+
+### Branch sem upstream (erro ao fazer push)
+```powershell
+git push --set-upstream origin feat/nome-da-feature
+```
 
 ### Remote com nome errado
 ```powershell
@@ -132,12 +176,13 @@ git branch -M main
 git push -u origin main
 ```
 
-## 10. Atualizando o projeto em notebooks diferentes
+---
 
-Quando trabalhar em uma máquina diferente, sempre sincronize o projeto
-antes de começar a editar.
+## 11. Atualizando o projeto em notebooks diferentes
 
-### 1. Se o projeto ainda não existe na máquina
+Quando trabalhar em uma máquina diferente, sempre sincronize o projeto antes de começar a editar.
+
+### Se o projeto ainda não existe na máquina
 
 ```powershell
 cd C:\sua-pasta
@@ -145,11 +190,14 @@ git clone https://github.com/seu-usuario/nome-do-repo.git
 cd nome-do-repo
 ```
 
-### 2. Se o projeto já existe na máquina
+### Se o projeto já existe na máquina
 
 ```powershell
 # Acesse a pasta do projeto
 cd C:\sua-pasta\nome-do-repo
+
+# Veja qual branch foi mexida por último
+git branch --sort=-committerdate
 
 # Troque para a branch feat/ que deseja atualizar
 git checkout feat/nome-da-feature
@@ -158,20 +206,14 @@ git checkout feat/nome-da-feature
 git pull origin feat/nome-da-feature
 ```
 
-### 3. Confirme que está atualizado
+### Confirme que está atualizado
 
 ```powershell
 git log --oneline -5
 ```
 
 > ⚠️ **Atenção:** sempre execute o `git pull` antes de começar a editar
-> em uma máquina diferente. Isso evita conflitos com o trabalho feito
-> em outra máquina.
-
-> Depois de salvar suba para o Git
-git add .
-git commit -m "docs: adicionando item 10 atualização em notebooks diferentes"
-git push
+> em uma máquina diferente. Isso evita conflitos com o trabalho feito em outra máquina.
 
 ---
 
@@ -185,16 +227,19 @@ git push
   - `feat:` nova funcionalidade
   - `fix:` correção de bug
   - `docs:` documentação
+  - `wip:` trabalho em progresso (não finalizado)
 
 ---
 
 ## 🔀 Fluxo das branches
 
+```
 feat/nome-da-feature
-↓ PR
-develop
-↓ PR
-main
+        ↓ PR
+    develop
+        ↓ PR
+      main  ←  Railway faz deploy automático aqui
+```
 
 ---
 
