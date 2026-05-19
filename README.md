@@ -88,6 +88,13 @@ git push
 
 ## 8. Descobrir onde você parou
 
+> ⚠️ **Importante:** Se você fez PRs pelo site do GitHub, o repositório local ainda não sabe disso.
+> Sempre rode `git fetch origin` **antes** de usar os comandos abaixo para garantir que o estado remoto está atualizado.
+>
+> ```powershell
+> git fetch origin  # atualiza o mapa do repositório remoto
+> ```
+
 Use estes comandos para saber qual branch foi mexida por último e se já foi mergeada.
 
 ```powershell
