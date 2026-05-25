@@ -119,7 +119,42 @@ git log --oneline -5
 
 ---
 
-## 9. Comandos úteis
+## 9. Validar se os PRs foram feitos corretamente
+
+Após fazer PRs pelo site do GitHub, use estes comandos para validar que tudo foi mergeado corretamente.
+
+```powershell
+# 1. Atualizar o repositório local com tudo do GitHub
+git fetch origin
+
+# 2. Atualizar a branch main local
+git checkout main
+git pull origin main
+
+# 3. Atualizar a branch develop local
+git checkout develop
+git pull origin develop
+
+# 4. Ver branches já mergeadas na main
+git branch -a --merged main
+
+# 5. Ver branches já mergeadas na develop
+git branch -a --merged develop
+
+# 6. Verificar se há diferença entre develop e main
+# Se não retornar nada — develop e main estão iguais ✅
+# Se retornar commits — há código na develop que ainda não foi para a main ⚠️
+git log main..develop --oneline
+
+# 7. Ver o histórico visual de branches e merges
+git log --oneline --graph --all -15
+```
+
+> ⚠️ **Importante:** Se você fez PRs pelo site do GitHub, rode `git fetch origin` **primeiro** antes de qualquer verificação. Sem isso, o Git local não sabe o que aconteceu no GitHub.
+
+---
+
+## 10. Comandos úteis
 
 ```powershell
 # Ver status dos arquivos
